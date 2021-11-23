@@ -1,0 +1,23 @@
+{
+  "name": "newsbot-discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ignurof/newsbot-discord.git"
+  },
+  "author": "Ignurof",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ignurof/newsbot-discord/issues"
+  },
+  "homepage": "https://github.com/ignurof/newsbot-discord#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "eris": "^0.16.1"
+  }
+}
