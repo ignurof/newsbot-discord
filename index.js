@@ -1,8 +1,9 @@
 const Eris = require("eris");
 const axios = require('axios');
+const fs = require("fs");
 
 // Replace TOKEN with your bot account's token // FIXME: Dont push this token to github, saved in Documents
-const bot = new Eris("", {
+const bot = new Eris("OTEyNzczMzcwODgwMzQ0MTA1.YZ00cg.DXTdvSKsdRTC9OMHUo7eUPim-Qk", {
     intents: [
         "guildMessages"
     ] // Seems like I need guildMessages intent to be able to interact with commands
@@ -39,9 +40,36 @@ const GetLatestTweet = async() => {
                 "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAADNyWAEAAAAAhyYXX3zHYbevbnmP%2Fs8WzjVmjIg%3DDCQNTbCL1l4dmC4ws8X5eb9zqam2eLNAQBk02J5I9eT9J8wf2S"
             }
         });
-        console.log(response.data.data[0]); // Latest tweet
+        //console.log(response.data.data[0]); // Latest tweet
+
         let tweet = response.data.data[0];
-        bot.createMessage("699022284945358860", `https://twitter.com/ignurof/status/${tweet.id}`); // channel id is first param
+        let oldTweet;
+
+        fs.readFile("oldtweet.json", (err, data) => {
+            if(err){
+                console.log("sending message to server...");
+                // Send message to discord server channel
+                bot.createMessage("699022284945358860", `https://twitter.com/ignurof/status/${tweet.id}`); // channel id is first param
+                fs.writeFile("oldtweet.json", JSON.stringify(tweet), (err) => {
+                    console.log("wrote to file");
+                });
+                return;
+            }
+
+            oldTweet = JSON.parse(data);
+        });
+
+        // Only send message if there is a new tweet
+        if(oldTweet !== undefined && oldTweet.id !== tweet.id){
+            console.log("sending message to server...");
+            // Send message to discord server channel
+            bot.createMessage("699022284945358860", `https://twitter.com/ignurof/status/${tweet.id}`); // channel id is first param
+
+            // Save latest to file
+            fs.writeFile("oldtweet.json", JSON.stringify(tweet), (err) => {
+                console.log("wrote to file");
+            });
+        }
     } catch(e){
         console.error(e);
     }
