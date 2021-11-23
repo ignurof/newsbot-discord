@@ -1,8 +1,8 @@
 const Eris = require("eris");
 const axios = require('axios');
 
-// Replace TOKEN with your bot account's token
-const bot = new Eris("OTEyNzczMzcwODgwMzQ0MTA1.YZ00cg.9MA_NrjmsNrIFJ1TN2e-9P4MurI", {
+// Replace TOKEN with your bot account's token // FIXME: Dont push this token to github, saved in Documents
+const bot = new Eris("", {
     intents: [
         "guildMessages"
     ] // Seems like I need guildMessages intent to be able to interact with commands
