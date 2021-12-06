@@ -57,7 +57,7 @@ const getLatestTweet = async() => {
         oldTweet = JSON.parse(oldTweet); // Parse from Buffer
         console.log(oldTweet);
         // If file could be read, and the old tweet is not the same or if no file existed
-        if(oldTweet !== undefined && oldTweet !== tweet){
+        if(oldTweet !== undefined && oldTweet.id !== tweet.id){
             createNew(tweet);
             return;
         }
@@ -73,7 +73,7 @@ const getLatestTweet = async() => {
 const createNew = (tweet) => {
     console.log("sending message to server...");
     // Send message to discord server channel
-    //bot.createMessage("699022284945358860", `https://twitter.com/ignurof/status/${tweet.id}`); // channel id is first param https://twitter.com/ignurof/status/${tweet.id}
+    bot.createMessage("699022284945358860", `https://twitter.com/ignurof/status/${tweet.id}`); // channel id is first param https://twitter.com/ignurof/status/${tweet.id}
 
     // Save latest to file
     fs.writeFile("oldtweet.json", JSON.stringify(tweet), (err) => {
